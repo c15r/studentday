@@ -1,0 +1,53 @@
+baseURL = "http://www.swisscom.com/"
+languageCode = "en-us"
+title = "Swisscom Student Day"
+theme = "hugo-coder"
+
+paginate = 20
+
+pygmentsStyle = "monokai"
+pygmentsCodeFences = true
+pygmentsCodeFencesGuessSyntax = true
+
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+  author = "authors"
+
+[params]
+  author = "Swisscom Student Day 2022"
+  info = "Deploy yourself to the Cloud!"
+  description = "John Doe's personal website"
+  keywords = "blog,developer,personal"
+  avatarurl = "images/avatar.png"
+  #gravatar = "john.doe@example.com"
+
+  since = 2022
+
+  enableTwemoji = true
+
+  colorScheme = "auto"
+  hidecolorschemetoggle = false
+
+# Social links
+[[params.social]]
+  name = "Github"
+  icon = "fa fa-github fa-2x"
+  weight = 1
+  url = "https://github.com/swisscom"
+[[params.social]]
+  name = "Twitter"
+  icon = "fa fa-twitter fa-2x"
+  weight = 3
+  url = "https://twitter.com/swisscom"
+
+# Menu links
+[[menu.main]]
+  name = "Blog"
+  weight = 1
+  url  = "posts/"
+[[menu.main]]
+  name = "About"
+  weight = 2
+  url = "about/"
