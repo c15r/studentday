@@ -137,7 +137,7 @@ Note: the echo commands are meant as example. Use your favorite editor or IDE to
 Learn more about Markdown in the [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) or the [Markdown Guide](https://www.markdownguide.org/).
 
 
-# Step 5: See how things look so far
+## Step 5: See how things look so far
 
 Now that you've done the basic configurations and initialized your first pages, it's time to run the site.
 Simply start a local webserver using the built in `hugo serve` command.
