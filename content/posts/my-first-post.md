@@ -15,8 +15,10 @@ series = []
 
 Cloud solutions are much like cooking: you need the right ingredients and the expertise to combine them perfectly. With our Cloud Services, we offer both to our customers. Be it as Private Cloud Solutions in our own datacenters or on the Global Public Clouds together with our partners Amazon Web Services (AWS) and Microsoft Azure. In this workshop, you can make your own first steps towards the Cloud by starting your personal blog and right away deploy it to AWS.
 
+
 # Your personal blog
 Alright, let's get started. In the step by step guide below, you will create your first static site based on [hugo](https://gohugo.io/), push it to [GitHub](https://github.com/), and deploy it with [AWS Amplify](https://aws.amazon.com/amplify/).
+
 
 ## Step 1: Setup Hugo
 
@@ -24,8 +26,17 @@ Install Hugo using the guide for your platform (macOS, Windows, Linux, ...)
 
 https://gohugo.io/getting-started/installing
 
+```bash
+# Test if everything is alright
+$ hugo version
+```
+
 
 ## Step 2: Start you first site
+
+After you have successfully installed Hugo, we can use the handy `hug new site` command to start our personal blog project.
+Go to a directory you want to work on and simply type the below commands. Replace *yourblog* with your personal project name.
+
 ```bash
 # Initialize your site
 $ hugo new site yourblog
@@ -34,7 +45,9 @@ $ hugo new site yourblog
 $ cd yourblog
 ```
 
+
 ## Step 3: Choose and configure your theme
+
 In the current workshop we will work with the [hugo-coder](https://github.com/luizdepra/hugo-coder) theme.
 However, there are many more themes at https://themes.gohugo.io.
 ```bash
@@ -104,16 +117,26 @@ pygmentsCodeFencesGuessSyntax = true
 
 ```
 
+
 ## Step 4: Create your first content
 
+Use the `hugo new` command to create your first pages.
+
 ```bash
-# Create your first post
+# Create your first post and add some content
 $ hugo new posts/my-first-post.md
+$ echo "# My First Post" >> content/posts/my-first-post.md
 
 # Create a simple static page 
 $ hugo new about.md
-
+$ echo "# About Me" >> content/about.md
 ```
+
+Note: the echo commands are meant as example. Use your favorite editor or IDE to edit the newly created markdown files.
+Learn more about Markdown in the [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) or the [Markdown Guide](https://www.markdownguide.org/).
+
+
+## Step 5: Push your site to GitHub
 
 
 
