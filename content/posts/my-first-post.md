@@ -29,6 +29,9 @@ https://gohugo.io/getting-started/installing
 ```bash
 # Test if everything is alright
 $ hugo version
+
+# Example output
+hugo v0.96.0-2fd4a7d3d6845e75f8b8ae3a2a7bd91438967bbb+extended linux/amd64 BuildDate=2022-03-26T09:15:58Z VendorInfo=gohugoio
 ```
 
 
@@ -64,12 +67,13 @@ Start based on the config below and customize the params.
 Note: the config below is dependant on the chosen theme. In case you've chosen another theme than hugo-coder, you will have to adapt parts of the config.
 
 ```toml
-baseURL = "http://www.swisscom.com/"
+baseURL = "http://www.swisscom.com"
 languageCode = "en-us"
 title = "Swisscom Student Day"
 theme = "hugo-coder"
 
 paginate = 20
+enableEmoji = true
 
 pygmentsStyle = "monokai"
 pygmentsCodeFences = true
@@ -84,12 +88,10 @@ pygmentsCodeFencesGuessSyntax = true
 [params]
   author = "Swisscom Student Day 2022"
   info = "Deploy yourself to the Cloud!"
-  description = "John Doe's personal website"
+  description = "Example hugo site for the Cloud workshop"
   keywords = "blog,developer,personal"
   avatarurl = "images/avatar.png"
-  #gravatar = "john.doe@example.com"
-  since = 2022
-  enableTwemoji = true
+  since = 2022  
   colorScheme = "auto"
   hidecolorschemetoggle = false
 
@@ -114,7 +116,6 @@ pygmentsCodeFencesGuessSyntax = true
   name = "About"
   weight = 2
   url = "about/"
-
 ```
 
 
@@ -136,9 +137,101 @@ Note: the echo commands are meant as example. Use your favorite editor or IDE to
 Learn more about Markdown in the [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) or the [Markdown Guide](https://www.markdownguide.org/).
 
 
-## Step 5: Push your site to GitHub
+# Step 5: See how things look so far
+
+Now that you've done the basic configurations and initialized your first pages, it's time to run the site.
+Simply start a local webserver using the built in `hugo serve` command.
+
+```bash
+$ hugo serve -D
+Start building sites …
+...
+Built in 69 ms
+....
+Environment: "development"
+Serving pages from memory
+Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
+Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
+Press Ctrl+C to stop
+```
+
+Open a browser and check out how things look like using the url listed as output.
 
 
+## Step 6: Push your site to GitHub
 
-## Step 5: Deploy to AWS
+Now it's time to push your blog project to 
 
+1. Go to https://github.com and login with your personal user
+   - In case you don't have a GitHub account yet, this is the time to create one :wink:
+2. Create a new repository for your project: https://github.com/new
+3. Just give it a name and leave the `README`, `.gitignore`, and `LICENSE` options empty
+
+Manually create a .gitignore file in your project based on the following template:
+```bash
+# Generated files by hugo
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
+
+# Executable may be added to repository
+hugo.exe
+hugo.darwin
+hugo.linux
+
+# Temporary lock file while building
+/.hugo_build.lock
+```
+
+After you have initialized a `.gitignore` file, continue publishing your project:
+
+```bash
+# Add the .gitignore file
+$ git add .gitignore
+
+# Add all the other files you've created and commit them
+$ git add .
+$ git commit -m "My new blog project based on Hugo"
+
+# Do some cosmetics, add the upstream repo, and push it remotely
+$ git branch -M main
+$ git remote add origin https://github.com/<your-user>/<your-repo>.git
+$ git push -u origin main
+```
+
+## Step 7: Deploy to the Cloud with AWS Amplify
+
+1. Go to https://aws.amazon.com
+   - Either click on _Sign In_ and login with your personal AWS account
+   - Or click on _Create an AWS Account_ and follow the wizzard
+2. Navigate to the _AWS Amplify_ console or simply open https://eu-central-1.console.aws.amazon.com/amplify/home?region=eu-central-1&#/create
+3. Choose _Host web app_
+4. Add repository branch
+   - Choose the in step 6 newly created repository
+   - Select `main` as your branch
+   - Click on _Next_
+5. Configure build settings
+   - Choose a suitable _App name_ for your project
+   - The _Build and test settings_ should be autodetect. If not, use the settings below
+     ```yaml
+      version: 1
+      frontend:
+        phases:
+          build:
+            commands:
+              - hugo
+        artifacts:
+          baseDirectory: public
+          files:
+            - '**/*'
+        cache:
+          paths: []
+      ```
+   - Unfold the _Advanced settings_ and click on _Add package version override_ in the _Live package updates_ section
+   - Choose _Hugo_ and ensure that as _Version_ the value **latest** is set
+   - Click on _Next_
+5. Review your configuration and hit _Save and deploy_
+6. Wait for the deployment pipeline to finish (Provision, Build, Deploy, Verify)
+7. Click on the _URL_ shown in the Amplify console
+8. Enjoy :smile:

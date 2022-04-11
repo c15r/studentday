@@ -1,9 +1,10 @@
-baseURL = "http://www.swisscom.com/"
+baseURL = "http://www.swisscom.com"
 languageCode = "en-us"
 title = "Swisscom Student Day"
 theme = "hugo-coder"
 
 paginate = 20
+enableEmoji = true
 
 pygmentsStyle = "monokai"
 pygmentsCodeFences = true
@@ -18,15 +19,10 @@ pygmentsCodeFencesGuessSyntax = true
 [params]
   author = "Swisscom Student Day 2022"
   info = "Deploy yourself to the Cloud!"
-  description = "John Doe's personal website"
+  description = "Example hugo site for the Cloud workshop"
   keywords = "blog,developer,personal"
   avatarurl = "images/avatar.png"
-  #gravatar = "john.doe@example.com"
-
-  since = 2022
-
-  enableTwemoji = true
-
+  since = 2022  
   colorScheme = "auto"
   hidecolorschemetoggle = false
 
