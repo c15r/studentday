@@ -1,6 +1,6 @@
 +++ 
 draft = false
-date = 2022-04-10T17:56:18+02:00
+date = 2023-04-10T17:56:18+02:00
 title = "Workshop: Deploy yourself to the cloud"
 description = ""
 slug = "workshop"
@@ -31,7 +31,7 @@ https://gohugo.io/getting-started/installing
 $ hugo version
 
 # Example output
-hugo v0.96.0-2fd4a7d3d6845e75f8b8ae3a2a7bd91438967bbb+extended linux/amd64 BuildDate=2022-03-26T09:15:58Z VendorInfo=gohugoio
+hugo v0.111.3-5d4eb5154e1fed125ca8e9b5a0315c4180dab192+extended linux/amd64 BuildDate=2023-03-12T11:40:50Z VendorInfo=gohugoio
 ```
 
 
@@ -86,12 +86,12 @@ pygmentsCodeFencesGuessSyntax = true
   author = "authors"
 
 [params]
-  author = "Swisscom Student Day 2022"
+  author = "Swisscom Student Day 2023"
   info = "Deploy yourself to the Cloud!"
   description = "Example hugo site for the Cloud workshop"
   keywords = "blog,developer,personal"
   avatarurl = "images/avatar.png"
-  since = 2022  
+  since = 2023  
   colorScheme = "auto"
   hidecolorschemetoggle = false
 
@@ -208,16 +208,24 @@ $ git push -u origin main
 2. Navigate to the _AWS Amplify_ console or simply open https://eu-central-1.console.aws.amazon.com/amplify/home?region=eu-central-1&#/create
 3. Choose _Host web app_
 4. Add repository branch
-   - Choose the in step 6 newly created repository
+   - Choose the newly created repository in step 6
    - Select `main` as your branch
    - Click on _Next_
 5. Configure build settings
    - Choose a suitable _App name_ for your project
-   - The _Build and test settings_ should be autodetect. If not, use the settings below
+   - The _Build and test settings_ should be autodetect. However, as we are using a special theme requiring a SASS process, we need to patch the hugo binary. 
+    Therefore, use the amplify build config below:
      ```yaml
       version: 1
       frontend:
         phases:
+          preBuild:
+            commands:
+              - wget https://github.com/gohugoio/hugo/releases/download/v${VERSION_HUGO}/hugo_extended_${VERSION_HUGO}_Linux-64bit.tar.gz
+              - tar --overwrite -xf hugo_extended_${VERSION_HUGO}_Linux-64bit.tar.gz hugo
+              - mv hugo /usr/bin/hugo
+              - rm -rf hugo_extended_${VERSION_HUGO}_Linux-64bit.tar.gz
+              - hugo version
           build:
             commands:
               - hugo
@@ -230,6 +238,7 @@ $ git push -u origin main
       ```
    - Unfold the _Advanced settings_ and click on _Add package version override_ in the _Live package updates_ section
    - Choose _Hugo_ and ensure that as _Version_ the value **latest** is set
+   - Add an _environment variable_ with the key _VERSION_HUGO_ and the value _0.111.3_ (adapt to the latest hugo version you want to use)
    - Click on _Next_
 5. Review your configuration and hit _Save and deploy_
 6. Wait for the deployment pipeline to finish (Provision, Build, Deploy, Verify)
