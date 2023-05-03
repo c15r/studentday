@@ -213,8 +213,9 @@ $ git push -u origin main
    - Click on _Next_
 5. Configure build settings
    - Choose a suitable _App name_ for your project
-   - The _Build and test settings_ should be autodetect. However, as we are using a special theme requiring a SASS process, we need to patch the hugo binary. 
-    Therefore, use the amplify build config below:
+   - The _Build and test settings_ should be autodetect. However, as we are using a special theme requiring a SASS processor, we need to patch the hugo binary
+     as we depend on the _extended_ version of Hugo (more details see https://github.com/aws-amplify/amplify-hosting/issues/884). 
+     Therefore, use the amplify build config below:
      ```yaml
       version: 1
       frontend:
@@ -238,9 +239,9 @@ $ git push -u origin main
       ```
    - Unfold the _Advanced settings_ and click on _Add package version override_ in the _Live package updates_ section
    - Choose _Hugo_ and ensure that as _Version_ the value **latest** is set
-   - Add an _environment variable_ with the key _VERSION_HUGO_ and the value _0.111.3_ (adapt to the latest hugo version you want to use)
+   - Add an _environment variable_ with the key _VERSION_HUGO_ and the value _0.111.3_ (adapt to the latest hugo version)
    - Click on _Next_
-5. Review your configuration and hit _Save and deploy_
-6. Wait for the deployment pipeline to finish (Provision, Build, Deploy, Verify)
-7. Click on the _URL_ shown in the Amplify console
-8. Enjoy :smile:
+6. Review your configuration and hit _Save and deploy_
+7. Wait for the deployment pipeline to finish (Provision, Build, Deploy, Verify)
+8. Click on the _URL_ shown in the Amplify console
+9. Enjoy :smile:
